@@ -105,6 +105,15 @@ function ns.Count(tbl)
 	return n
 end
 
+-- A unit's full name. Forever names are two words: UnitName gives (first name, surname).
+function ns.FullName(unit)
+	local first, second = UnitName(unit)
+	first, second = ns.R(first), ns.R(second)
+	if not first then return nil end
+	if second and second ~= "" then return first .. " " .. second end
+	return first
+end
+
 function ns.Add(tbl, key, amount)
 	if key == nil then return end
 	tbl[key] = (tbl[key] or 0) + (amount or 1)
@@ -179,7 +188,7 @@ ns.RealmName = RealmName
 -- Characters are keyed by GUID: on Forever GetRealmName() can still be empty at login,
 -- so name-realm keys made same-named characters on different realms share one record.
 function ns:InitChar()
-	local name = ns.R(UnitName("player")) or "Unknown"
+	local name = ns.FullName("player") or "Unknown"
 	local realm = RealmName()
 	local guid = ns.R(UnitGUID("player"))
 	local key = guid or (name .. "-" .. (realm or "?"))
@@ -192,6 +201,12 @@ function ns:InitChar()
 	end
 	c.name = name
 	c.realm = realm or c.realm
+	-- Companions used to be saved as "First-Surname".
+	if not c.fullNames then
+		local fixed = {}
+		for who, sec in pairs(c.companions) do ns.Add(fixed, (who:gsub("%-", " ", 1)), sec) end
+		c.companions, c.fullNames = fixed, true
+	end
 	self.charKey, self.char = key, c
 	return c
 end

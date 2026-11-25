@@ -1018,7 +1018,7 @@ function S.pvp(c)
 		cells[#cells + 1] = { text = format("%d - %d", duelsWon, duelsLost), label = "Duels won - lost" }
 	end
 	local foe = ns.Top(c.kills.playerNames, 1)[1]
-	if foe then cells[#cells + 1] = { text = foe.key, label = "Most defeated " .. Since(c) } end
+	if foe then cells[#cells + 1] = { text = foe.key, label = "Most defeated" } end
 	if c.snap.pvpRank and c.snap.pvpRank > 0 and GetPVPRankInfo then
 		local rankName = ns.R(ns.Try(GetPVPRankInfo, c.snap.pvpRank))
 		if rankName then cells[#cells + 1] = { text = rankName, label = "Highest rank" } end

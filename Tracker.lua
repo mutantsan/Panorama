@@ -39,7 +39,7 @@ local function Remember(unit)
 	if not guid then return end
 	if cacheSize > 3000 then wipe(names); wipe(classes); cacheSize = 0 end
 	if not names[guid] then
-		local name = R(UnitName(unit))
+		local name = ns.FullName(unit)
 		if name then names[guid] = name; cacheSize = cacheSize + 1 end
 	end
 	local cls = R(UnitClassification(unit))
@@ -279,10 +279,15 @@ function H.PARTY_KILL(attacker, target)
 	if not target then return end
 	local kind = strsplit("-", target)
 	local name = names[target]
-	if not name and R(UnitGUID("target")) == target then name = R(UnitName("target")) end
+	if not name and R(UnitGUID("target")) == target then name = ns.FullName("target") end
 	if kind == "Player" then
 		if mine then k.players = k.players + 1 end
-		if not name and GetPlayerInfoByGUID then name = R(select(6, Try(GetPlayerInfoByGUID, target))) end
+		if not name and GetPlayerInfoByGUID then
+			-- (class, class, race, race, sex, name, realm); on Forever the last one is the surname.
+			local first, second = select(6, Try(GetPlayerInfoByGUID, target))
+			first, second = R(first), R(second)
+			if first then name = (second and second ~= "") and (first .. " " .. second) or first end
+		end
 		if name then Add(k.playerNames, name) end
 		return
 	end
@@ -314,6 +319,9 @@ local function ReadKiller()
 	if type(env) == "string" then
 		return (env:lower() == "falling") and "Gravity" or env
 	end
+	-- Seen before: the cached full name ("First Surname") beats the recap's text.
+	local guid = R(e.sourceGUID)
+	if guid and names[guid] then return names[guid] end
 	local name = R(e.sourceName)
 	return type(name) == "string" and name ~= "" and name or nil
 end
@@ -442,11 +450,8 @@ local function ScanGroup(dt)
 	for i = 1, n do
 		local unit = (raid and "raid" or "party") .. i
 		if not R(UnitIsUnit(unit, "player")) and R(UnitIsPlayer(unit)) then
-			local name, realm = UnitName(unit)
-			name, realm = R(name), R(realm)
-			if name and name ~= UNKNOWNOBJECT then
-				Add(c.companions, (realm and realm ~= "") and (name .. "-" .. realm) or name, dt)
-			end
+			local name = ns.FullName(unit)
+			if name and name ~= UNKNOWNOBJECT then Add(c.companions, name, dt) end
 		end
 	end
 end

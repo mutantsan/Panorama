@@ -3,6 +3,8 @@
 Panorama shows stats and highlights from your character's adventures in WoW Forever, as a scrollable set of
 cards you open from the minimap.
 
+![Panorama](media/preview.png)
+
 ## What it shows
 
 - Time played, your favourite zone, and how far you've travelled
