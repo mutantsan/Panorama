@@ -1,0 +1,22 @@
+## Interface: 16001
+## Title: |cffb48cffPanorama|r
+## Notes: Stats and highlights from your character's adventures so far. Open it from the minimap.
+## Author: mutantsan
+## Version: 1.0.0
+## X-License: MIT
+## SavedVariables: PanoramaDB
+## IconTexture: Interface\Icons\INV_Misc_Spyglass_03
+## AddonCompartmentFunc: Panorama_OnAddonCompartmentClick
+## Category-enUS: User Interface
+
+Libs\LibStub\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
+
+Core.lua
+Stats.lua
+Tracker.lua
+Insights.lua
+UI.lua
+Minimap.lua
