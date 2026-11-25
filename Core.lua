@@ -18,6 +18,7 @@ Panorama = ns
 ns.name = ADDON
 ns.version = (C_AddOns and C_AddOns.GetAddOnMetadata and C_AddOns.GetAddOnMetadata(ADDON, "Version")) or "1.0.0"
 ns.ICON = "Interface\\Icons\\INV_Misc_Spyglass_03"
+ns.LOGO = "Interface\\AddOns\\Panorama\\media\\icon"
 
 local floor, format = math.floor, string.format
 

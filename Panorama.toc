@@ -5,7 +5,7 @@
 ## Version: 1.0.0
 ## X-License: MIT
 ## SavedVariables: PanoramaDB
-## IconTexture: Interface\Icons\INV_Misc_Spyglass_03
+## IconTexture: Interface\AddOns\Panorama\media\icon
 ## AddonCompartmentFunc: Panorama_OnAddonCompartmentClick
 ## Category-enUS: User Interface
 

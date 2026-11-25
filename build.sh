@@ -22,6 +22,7 @@ copy() {
 
 copy "$NAME.toc"
 copy LICENSE
+copy media/icon.tga
 
 # Every file the .toc loads (skips ## lines, comments and blanks).
 grep -v -e '^#' -e '^[[:space:]]*$' "$NAME.toc" | tr -d '\r' | tr '\\' '/' | while read -r file; do

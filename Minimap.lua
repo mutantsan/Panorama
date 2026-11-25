@@ -14,7 +14,7 @@ function Minimap:Init()
 	self.object = LDB:NewDataObject("Panorama", {
 		type = "launcher",
 		text = "Panorama",
-		icon = ns.ICON,
+		icon = ns.LOGO,
 		OnClick = function() ns.UI:Toggle() end,
 		OnTooltipShow = function(tt)
 			local c = ns.char

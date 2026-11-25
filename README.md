@@ -1,3 +1,5 @@
+<img src="media/logo.png" alt="Panorama logo" width="160" align="right">
+
 # Panorama
 
 Panorama shows stats and highlights from your character's adventures in WoW Forever, as a scrollable set of
